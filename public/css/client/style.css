@@ -73,6 +73,9 @@ footer{
 	padding-left: 0px;
 	list-style-type: none;
 }
+.menu .list-menu li:hover:first-child{
+	background: no-repeat;
+}
 .menu .list-menu li{
 	color: #fff;
 	position: relative;
