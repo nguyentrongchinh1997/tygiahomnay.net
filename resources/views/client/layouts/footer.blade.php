@@ -1,6 +1,6 @@
 		<footer>
 			<p>
-				© 2019 - {{ date('Y') }}, Copyright - Website cập nhật nhanh giá cả thị trường.
+				© {{ date('Y') }}, Tygiahomnay.net - Website cập nhật nhanh giá cả thị trường.
 			</p>
 			
 		</footer>

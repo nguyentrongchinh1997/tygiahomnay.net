@@ -20,9 +20,14 @@ class HomeController extends Controller
     {
         $html = file_get_html('http://sinhdien.com.vn/vn/');
         $buy_99 = $html->find('.panel-body table tr')[1]->find('td')[1]->plaintext;
+        $buy_99 = str_replace('.', '', explode(' ', $buy_99)[0]);
+        //dd($buy_99);
         $sell_99 = $html->find('.panel-body table tr')[1]->find('td')[2]->plaintext;
+        $sell_99 = str_replace('.', '', explode(' ', $sell_99)[0]);
         $buy_sdj = $html->find('.panel-body table tr')[2]->find('td')[1]->plaintext;
+        $buy_sdj = str_replace('.', '', explode(' ', $buy_sdj)[0]);
         $sell_sdj = $html->find('.panel-body table tr')[2]->find('td')[2]->plaintext;
+        $sell_sdj = str_replace('.', '', explode(' ', $sell_sdj)[0]);
         $title = $html->find('#kiogoldstatus-home .panel-heading .panel-title')[0]->plaintext;
     	$data = $this->homeService->homePage();
     	$usersChart = new UserChart;

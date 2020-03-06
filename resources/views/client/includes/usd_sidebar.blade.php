@@ -1,4 +1,4 @@
-<img src="https://safedownload.net/images/thi_thu_toeic.jpg" style="margin: 30px 0px; width: 100%">
+<a target="_blank" href="https://toeic24.vn/"><img src="https://safedownload.net/images/thi_thu_toeic.jpg" style="margin: 30px 0px; width: 100%"></a>
 <table>
 	<tr style="background: #f5f5f5">
 		<td colspan="3" style="text-align: center;">

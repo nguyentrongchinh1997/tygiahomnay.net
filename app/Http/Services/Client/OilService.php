@@ -16,7 +16,7 @@ class OilService
 	public function petrolimexView()
 	{
 		try {
-			$oil = $this->oilModel->orderBy('date', 'desc')->take(1)->first();
+			$oil = $this->oilModel->orderBy('created_at', 'desc')->take(1)->first();
 
 			if (isset($oil)) {
 				$date = $oil->date;

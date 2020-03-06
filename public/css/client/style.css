@@ -76,6 +76,10 @@ footer{
 .menu .list-menu li:hover:first-child{
 	background: no-repeat;
 }
+.alert-warning{
+	font-size: 14px;
+	width: 100%;
+}
 .menu .list-menu li{
 	color: #fff;
 	position: relative;
