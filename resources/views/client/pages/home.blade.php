@@ -43,7 +43,7 @@
 				</tr>
 			</table>
 			<br><br>
-			<h1 class="h1" style="font-size: 20px; font-weight: normal;">Biểu đồ tỷ giá Euro (EUR) ngân hàng Vietcombank - <b>tháng {{ date('m/Y') }}</b></h1>
+			<h1 class="h1" style="font-size: 20px; font-weight: normal;">Biểu đồ tỷ giá Euro (EUR) ngân hàng Vietinbank - <b>tháng {{ date('m/Y') }}</b></h1>
 			<table style="margin: auto;">
 				<tr>
 					<td>
