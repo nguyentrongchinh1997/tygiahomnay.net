@@ -9,8 +9,9 @@ class GoldDetail extends Model
    	protected $table = 'gold_details';
 
     protected $fillable = [
-        'city',
+        'city_id',
         'type',
+        'type_slug',
         'buy',
         'sell',
         'gold_id',
@@ -22,5 +23,10 @@ class GoldDetail extends Model
     public function gold()
     {
     	return $this->belongsTo(Gold::class);
+    }
+
+    public function city()
+    {
+    	return $this->belongsTo(City::class);
     }
 }

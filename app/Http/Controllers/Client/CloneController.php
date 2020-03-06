@@ -9,6 +9,7 @@ use App\Model\ExchangeRate;
 use App\Model\Oil;
 use App\Model\Gold;
 use App\Model\GoldDetail;
+use App\Model\City;
 
 class CloneController extends Controller
 {
@@ -21,7 +22,14 @@ class CloneController extends Controller
 		$this->vietcombank();
 		$this->techcombank();
 		$this->oil();
+		$this->sjc();
+		$this->doji();
+		$this->pnj();
+		$this->phuQuy();
+		$this->btmc();
+		$this->agribank();
 	}
+
     public function agribank()
     {
     	try {
@@ -99,7 +107,7 @@ class CloneController extends Controller
 	    		$this->updateExchangeRate($currencyId, $bankId, $listArray[$i][1], $listArray[$i][2], $listArray[$i][3], $listArray[$i][4], $timestamp, $date, $dateDetail);
 	    	}
 
-    		echo "Cập nhật thành công";
+    		echo "Cập nhật thành công sacombank" . '<br>';
     	} else {
     		$listArray = $this->arrayDataSacombank($html, $listArray);
 	    	$count = count($listArray);
@@ -108,7 +116,7 @@ class CloneController extends Controller
 	    		
 	    		$this->insertExchangeRate($currencyId, $bankId, $listArray[$i][1], $listArray[$i][2], $listArray[$i][3], $listArray[$i][4], $timestamp, $date);
 	    	}
-	    	echo "Thêm thành công";
+	    	echo "Thêm thành công sacombank" . '<br>';
     	}
     }
 
@@ -163,7 +171,7 @@ class CloneController extends Controller
 				}
 				$stt++;
 	    	}
-	    	echo "Cập nhật thành công";
+	    	echo "Cập nhật thành công techcombank <br>";
     	} else {
     		foreach ($html->find('.table-responsive table tr') as $tr) {
 	    		if ($stt > 3 && $stt <= 33 && ($stt%2 == 0)) {
@@ -178,7 +186,7 @@ class CloneController extends Controller
 				}
 				$stt++;
 	    	}
-	    	echo "Thêm thành công";
+	    	echo "Thêm thành công techcombank<br>";
 	    }
     }
 
@@ -209,7 +217,7 @@ class CloneController extends Controller
 				$stt++;
 	    	}
 
-	    	echo "Cập nhật thành công";
+	    	echo "Cập nhật thành công vietinbank<br>";
     	} else {
     		foreach ($html->find('.exTbl tr') as $tr) {
 	    		if ($stt > 1 && $stt < 20 && $stt != 8) {
@@ -224,7 +232,7 @@ class CloneController extends Controller
 				}
 				$stt++;
 	    	}
-	    	echo "Thêm thành công";
+	    	echo "Thêm thành công vietinbank<br>";
 	    }
     }
 
@@ -281,7 +289,7 @@ class CloneController extends Controller
 				$stt++;
 	    	}
 
-    		return "Cập nhật thành công";
+    		return "Cập nhật thành công BIDV <br>";
     	} else {
     		foreach ($html->find('.table-responsive table tr') as $tr) {
 	    		if ($stt > 1) {
@@ -298,7 +306,7 @@ class CloneController extends Controller
 				}
 				$stt++;
 	    	}
-	    	return "Thêm thành công";
+	    	return "Thêm thành công BIDV<br>";
 	    }
     }
 
@@ -322,7 +330,7 @@ class CloneController extends Controller
 				$stt++;
 	    	}
 
-	    	return "Cập nhật thành công";
+	    	return "Cập nhật thành công TPbank<br>";
     	} else {
     		foreach ($html->find('.table-responsive table tr') as $tr) {
 	    		if ($stt > 1) {
@@ -340,7 +348,7 @@ class CloneController extends Controller
 				}
 				$stt++;
 	    	}
-	    	return "Thêm thành công";
+	    	return "Thêm thành công TPbank<br>";
 	    }
     }
 /*end*/
@@ -348,8 +356,8 @@ class CloneController extends Controller
 /*Có lịch sử tỷ giá trong trang webgia.com*/
     public function vietcombank()
     {
-    	$date = date('d-m-Y');
-    	$dateDetail = date('Y-m-d H:i:s');
+    	$date = date('01-m-Y');
+    	$dateDetail = date('Y-m-01 H:i:s');
     	$html = file_get_html('https://webgia.com/ty-gia/vietcombank/' . $date . '.html');
     	$timestamp = strtotime($date);
     	$bankId = config('config.bank.vietcombank');
@@ -373,7 +381,7 @@ class CloneController extends Controller
 				}
 				$stt++;
 	    	}
-	    	echo "Cập nhật thành công";
+	    	echo "Cập nhật thành công vietcombank<br>";
     	} else {
     		foreach ($html->find('article#main table tr') as $tr) {
 	    		if ($stt > 0 && $stt < 21) {
@@ -391,7 +399,7 @@ class CloneController extends Controller
 				}
 				$stt++;
 	    	}
-	    	echo "Thêm thành công";
+	    	echo "Thêm thành công vietcombank<br>";
 	    }
     }
 /*end*/
@@ -447,9 +455,9 @@ class CloneController extends Controller
 		    		$this->insertOil($name, $price1, $price2, $date);
 		    	}
 	    	}
-	    	echo "Thêm thành công";
+	    	echo "Thêm thành công dầu<br>";
     	} catch (\Exception $e) {
-    		echo "Thêm thất bại";
+    		echo "Thêm thất bại dầu<br>";
     	}
     }
 
@@ -463,20 +471,37 @@ class CloneController extends Controller
     	]);
     }
 
+    public function checkCity($slug, $name)
+    {
+    	$city = City::where('slug', $slug)->first();
+    	if (empty($city)) {
+    		$city = City::create([
+    			'name' => $name,
+    			'slug' => $slug
+    		]);
+    	}
+
+    	return $city;
+    }
+
     public function insertGoldTable($data, $date, $goldId)
-    {	
+    {
     	$listArray = $array = array();
     	$name = $data['name'];
+    	$slug = str_slug($name);
     	$item = $data->item;
+    	$city = $this->checkCity($slug, $name);
+
     	for ($i = 0; $i < count($item); $i++) {
     		GoldDetail::create(
 	    		[
 	    			'buy' => $item[$i]['buy'],
 	    			'sell' => $item[$i]['sell'],
 	    			'type' => $item[$i]['type'],
+	    			'type_slug' => str_slug($item[$i]['type']),
 	    			'gold_id' => $goldId,
 	    			'date' => $date,
-	    			'city' => $name,
+	    			'city_id' => $city->id,
 	    		]
 	    	);
     	}
@@ -490,6 +515,7 @@ class CloneController extends Controller
 	      	$xml = simplexml_load_file($url);
 	      	$time = ($xml->ratelist)['updated'];
 	      	$date = str_replace('/', '-', explode(' ', $time)[2]);
+	      	$date = date('Y-m-d', strtotime($date));
 	      	$goldId = config('config.gold.sjc');
 	      	$check = $this->checkSJC($date, $goldId);
 
@@ -499,13 +525,13 @@ class CloneController extends Controller
 		      		$this->insertGoldTable(($xml->ratelist->city)[$stt], $date, $goldId);
 		      		$stt++;
 		      	}
-		      	echo "Cập nhật thành công";
+		      	echo "Cập nhật thành công vàng sjc<br>";
 	      	} else {
 	      		foreach ($xml->ratelist->city as $key => $item) {
 		      		$this->insertGoldTable(($xml->ratelist->city)[$stt], $date, $goldId);
 		      		$stt++;
 		      	}
-		      	echo "Thêm thành công";
+		      	echo "Thêm thành công vàng sjc<br>";
 	      	}
     	} catch (\Exception $e) {
     		echo "Lỗi";
@@ -522,41 +548,255 @@ class CloneController extends Controller
 
     public function doji()
     {
-    	$html = file_get_html('http://giavang.doji.vn/');
-    	$stt = 0;
-    	$goldId= config('config.gold.doji');
-    	$date = date('d-m-Y');
-    	$check = $this->checkSJC($date, $goldId);
+    	try {
+    		$html = file_get_html('https://webgia.com/gia-vang/doji/');
+	    	$stt = 0;
+	    	$goldId= config('config.gold.doji');
+	    	$date = date('Y-m-d');
+	    	$check = $this->checkSJC($date, $goldId);
 
-    	if ($check > 0) {
-    		GoldDetail::where('date', $date)->where('gold_id', $goldId)->delete();
-    		$this->insertDoji($html, $stt, $goldId, $date);
-    	} else {
-    		$this->insertDoji($html, $stt, $goldId, $date);
-    	}
-    	
+	    	if ($check > 0) {
+	    		GoldDetail::where('date', $date)->where('gold_id', $goldId)->delete();
+	    		$this->insertDoji($html, $stt, $goldId, $date);
+
+	    		echo "Cập nhật thành công vàng doji<br>";
+	    	} else {
+	    		$this->insertDoji($html, $stt, $goldId, $date);
+
+	    		echo "Thêm thành công vàng doji<br>";
+	    	}
+    	} catch (\Exception $e) {
+    		echo "Lỗi";
+    	}    	
     }
 
     public function insertDoji($html, $stt, $goldId, $date)
     {
-    	foreach ($html->find('.goldprice-view tr') as $tr) {
-	    		if ($stt > 0) {
-	    			foreach ($tr->find('td') as $item) {
-	    				$type = $tr->find('td')[0]->plaintext;
-	    				$buy = $tr->find('td')[1]->plaintext;
-	    				$sell = $tr->find('td')[2]->plaintext;
-	    			}
-	    			GoldDetail::create(
-	    				[
-	    					'type' => $type,
-	    					'buy' => $buy,
-	    					'sell' => $sell,
-	    					'gold_id' => $goldId,
-	    					'date' => $date
-	    				]
-	    			);
-	    		}
-	    		$stt++;
+    	foreach ($html->find('.table-responsive table tr') as $tr) {
+    		if ($stt > 1) {
+    			foreach ($tr->find('td') as $item) {
+    				$type = $tr->find('td')[0]->plaintext;
+    				$buyHN = $tr->find('td')[1]->plaintext;
+    				$sellHN = $tr->find('td')[2]->plaintext;
+    				$buyDN = $tr->find('td')[3]->plaintext;
+    				$sellDN = $tr->find('td')[4]->plaintext;
+    				$buyHCM = $tr->find('td')[5]->plaintext;
+    				$sellHCM = $tr->find('td')[6]->plaintext;
+    			}
+    			$this->insertDojiHN($type, $buyHN, $sellHN, $buyDN, $sellDN, $buyHCM, $sellHCM, $goldId, $date);
+    		}
+    		$stt++;
+	    }
+    }
+
+    public function insertGoldDetail($cityId, $type, $buy, $sell, $goldId, $date, $updated_at)
+    {
+    	return GoldDetail::create(
+			[
+				'city_id' => $cityId,
+				'type' => $type,
+				'type_slug' => str_slug($type),
+				'buy' => $buy,
+				'sell' => $sell,
+				'gold_id' => $goldId,
+				'date' => $date,
+				'updated_at' => $updated_at
+			]
+		);
+    }
+
+    public function insertDojiHN($type, $buyHN, $sellHN, $buyDN, $sellDN, $buyHCM, $sellHCM, $goldId, $date)
+    {
+    	$updated_at = date('Y-m-d H:i:s');
+    	$this->insertGoldDetail(2, $type, $buyHN, $sellHN, $goldId, $date, $updated_at);
+    	$this->insertGoldDetail(3, $type, $buyDN, $sellDN, $goldId, $date, $updated_at);
+    	$this->insertGoldDetail(1, $type, $buyHCM, $sellHCM, $goldId, $date, $updated_at);
+    }
+
+    public function pnj()
+    {
+    	$html = file_get_html('https://vangmieng.pnj.com.vn/');
+    	$stt = 0;
+    	$goldId = config('config.gold.pnj');
+    	$time = trim($html->find('.portlet-body table tr')[1]->find('td')[4]->plaintext);
+    	$dateFormat = str_replace('/', '-', $time);
+    	$date = date('Y-m-d', strtotime($dateFormat));
+    	$updated_at = date('Y-m-d H:i:s', strtotime($dateFormat));
+    	$check = $this->checkSJC($date, $goldId);
+
+    	if ($check > 0) {
+    		GoldDetail::where('gold_id', $goldId)->where('date', $date)->delete();
+    		$this->getDataPNJ($html, $stt, $date, $updated_at, $goldId);
+
+    		echo "Cập nhật thành công vàng pnj<br>";
+    		
+    	} else {
+    		$this->getDataPNJ($html, $stt, $date, $updated_at, $goldId);
+
+    		echo "Thêm thành công vàng pnj<br>";
+    	}
+    }
+
+    public function getDataPNJ($html, $stt, $date, $updated_at, $goldId)
+    {
+    	foreach ($html->find('.portlet-body table tr') as $tr) {
+    		$dem = $stt;
+    		if ($dem > 0 && $dem < 4 ) {
+    			$this->insertPNJ($tr, $goldId, config('config.city.hcm'), $dem, 1, $date, $updated_at);
+    		} 
+    		else if ($dem > 3 && $dem < 6) {
+    			$this->insertPNJ($tr, $goldId, config('config.city.hn'), $dem, 4, $date, $updated_at);
+    		} else if ($dem > 5 && $dem < 8) {
+    			$this->insertPNJ($tr, $goldId, config('config.city.dn'), $dem, 6, $date, $updated_at);
+    		} else if ($dem > 7 && $dem < 10) {
+    			$this->insertPNJ($tr, $goldId, config('config.city.ct'), $dem, 8, $date, $updated_at);
+    		} else if ($dem > 9 && $dem < 15){
+    			$this->insertPNJ($tr, $goldId, config('config.city.other'), $dem, 10, $date, $updated_at);
+    		}	
+
+    		$stt++;
+    	}
+    }
+
+    public function insertPNJ($tr, $goldId, $cityId, $dem, $position, $date, $updated_at)
+    {
+    	if ($dem == $position) {
+    		foreach ($tr->find('td') as $td) {
+	    		$type = $tr->find('td')[1]->plaintext;
+	    		$type_slug = str_slug($type);
+	    		$buy = $tr->find('td')[2]->plaintext;
+	    		$sell = $tr->find('td')[3]->plaintext;
 	    	}
+
+    	} else {
+    		foreach ($tr->find('td') as $td) {
+	    		$type = $tr->find('td')[0]->plaintext;
+	    		$type_slug = str_slug($type);
+	    		$buy = $tr->find('td')[1]->plaintext;
+	    		$sell = $tr->find('td')[2]->plaintext;
+	    	}
+    	}
+
+    	return $this->insertGoldDetail($cityId, $type, $buy, $sell, $goldId, $date, $updated_at);
+    }
+
+    public function getDateWebGia($html)
+    {
+    	$dateFind = $html->find('#main .h-head small')[0]->plaintext;
+    	$dateReplaceFirst = str_replace('- Cập nhật lúc ', '', $dateFind);
+    	$dateReplaceSecond = str_replace('/', '-', $dateReplaceFirst);
+    	$date = date('Y-m-d', strtotime($dateReplaceSecond));
+    	$dateDetail = date('Y-m-d H:i:s', strtotime($dateReplaceSecond));
+
+    	return $data = [
+    		'date' => $date,
+    		'updated_at' => $dateDetail
+    	];
+    }
+
+    public function phuQuy()
+    {
+    	$html = file_get_html('https://webgia.com/gia-vang/phu-quy/');
+    	$stt = 0;
+    	$goldId = config('config.gold.pq');
+    	$date = $this->getDateWebGia($html);
+    	$check = $this->checkSJC($date['date'], $goldId);
+
+    	if ($check > 0) {
+    		GoldDetail::where('gold_id', $goldId)->where('date', $date['date'])->delete();
+    		$this->getDataPhuQuy($html, $stt, $date['date'], $date['updated_at'], $goldId);
+
+    		echo "Cập nhật thành công vàng phú quý<br>";
+    	} else {
+    		$this->getDataPhuQuy($html, $stt, $date['date'], $date['updated_at'], $goldId);
+
+    		echo "Thêm thành công vàng phú quý<br>";
+    	}
+    }
+
+    public function getDataPhuQuy($html, $stt, $date, $dateDetail, $goldId)
+    {
+    	foreach ($html->find('.table-responsive table tr') as $tr) {
+    		$dem = $stt;
+    		if ($dem > 0 && $dem <= 3) {
+    			$this->insertPhuQuy(config('config.city.hn'), $tr, $date, $dateDetail, $goldId, $dem, 1);
+    		} else if ($dem > 3 && $dem <= 6) {
+    			$this->insertPhuQuy(config('config.city.hcm'), $tr, $date, $dateDetail, $goldId, $dem, 4);
+    		} else if ($dem == 7) {
+    			$this->insertPhuQuy(config('config.city.ban-buon'), $tr, $date, $dateDetail, $goldId, $dem, 7);
+    		}
+    		$stt++;
+    	}
+    }
+
+    public function insertPhuQuy($cityId, $tr, $date, $updated_at, $goldId, $dem, $stt)
+    {
+    	foreach ($tr->find('td') as $item) {
+    		if ($dem == $stt) {
+    			$type = $tr->find('td')[1]->plaintext;
+    			$buy = $tr->find('td')[2]->plaintext;
+    			$sell = $tr->find('td')[3]->plaintext;
+    		} else {
+    			$type = $tr->find('td')[0]->plaintext;
+    			$buy = $tr->find('td')[1]->plaintext;
+    			$sell = $tr->find('td')[2]->plaintext;
+    		}
+    	}
+
+    	return $this->insertGoldDetail($cityId, $type, $buy, $sell, $goldId, $date, $updated_at);
+    }
+
+    public function btmc()
+    {
+    	$html = file_get_html('https://webgia.com/gia-vang/bao-tin-minh-chau/');
+    	$stt = 0;
+    	$goldId = config('config.gold.btmc');
+    	$date = $this->getDateWebGia($html);
+    	$check = $this->checkSJC($date['date'], $goldId);
+
+    	if ($check > 0) {
+    		GoldDetail::where('gold_id', $goldId)->where('date', $date['date'])->delete();
+    		$this->getDataBaoTinMinhChau($html, $goldId, $date);
+
+  			echo "Cập nhật thành công vàng bảo tín minh châu<br>";
+    	} else {
+    		$this->getDataBaoTinMinhChau($html, $goldId, $date);
+    		echo "Thêm thành công vàng bảo tín minh châu<br>";
+    	}
+    }
+
+    public function getDataBaoTinMinhChau($html, $goldId, $date)
+    {
+    	$stt = 0;
+    	foreach ($html->find('.table-responsive table tr') as $tr) {
+    		$dem = $stt;
+    		if ($dem > 0 && $dem <= 4) {
+    			$this->insertBaoTinMinhChau($tr, $goldId, $date['date'], $date['updated_at'], $dem, 1);
+    		} else if ($dem > 8 && $dem <= 13) {
+    			$this->insertBaoTinMinhChau($tr, $goldId, $date['date'], $date['updated_at'], $dem, 9);
+    		} else if ($dem > 13 && $dem <= 18) {
+    			$this->insertBaoTinMinhChau($tr, $goldId, $date['date'], $date['updated_at'], $dem, 14);
+    		} else if ($dem >=5 && $dem <=8 ) {
+    			$this->insertBaoTinMinhChau($tr, $goldId, $date['date'], $date['updated_at'], $dem, 222);
+    		}
+    		$stt++;
+    	}
+    }
+
+    public function insertBaoTinMinhChau($tr, $goldId, $date, $updated_at, $dem, $stt)
+    {
+    	foreach($tr->find('td') as $td) {
+    		if ($dem == $stt || $stt == 222) {
+    			$type = $tr->find('td')[1]->plaintext;
+    			$buy = $tr->find('td')[2]->plaintext;
+    			$sell = $tr->find('td')[3]->plaintext;
+    		} else {
+    			$type = $tr->find('td')[0]->plaintext;
+    			$buy = $tr->find('td')[1]->plaintext;
+    			$sell = $tr->find('td')[2]->plaintext;
+    		}
+    	}
+    	
+    	return $this->insertGoldDetail('', $type, $buy, $sell, $goldId, $date, $updated_at);
     }
 }

@@ -1,3 +1,9 @@
+		<footer>
+			<p>
+				© 2019 - {{ date('Y') }}, Copyright - Website cập nhật nhanh giá cả thị trường.
+			</p>
+			
+		</footer>
 	</body>
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
@@ -5,7 +11,7 @@
 	<link href="https://cdn.jsdelivr.net/bootstrap.datepicker-fork/1.3.0/css/datepicker3.css" rel="stylesheet"/>
 	<script src="https://cdn.jsdelivr.net/bootstrap.datepicker-fork/1.3.0/js/bootstrap-datepicker.js"></script>
 	<script src="https://cdn.jsdelivr.net/bootstrap.datepicker-fork/1.3.0/js/locales/bootstrap-datepicker.it.js"></script>
-	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function(){
 			$.fn.datepicker.dates['en'] = {
@@ -27,4 +33,5 @@
 		    $('.datepicker').datepicker();
 		});
 	</script>
+	<script src="{{ asset('js/client.js') }}"></script>
 </html>

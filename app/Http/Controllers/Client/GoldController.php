@@ -15,28 +15,58 @@ class GoldController extends Controller
 		$this->goldService = $goldService;
 	}
 
-    public function goldView($slug, Request $request)
+	public function goldView($slug, Request $request)
+	{
+		$gold = $this->goldService->getGold($slug);
+
+		if ($gold->id == config('config.gold.doji')) {
+			$data = $this->goldService->dojiView($gold->id, $request, $slug);
+		} else {
+			$data = $this->goldService->goldView($gold->id, $request, $slug);
+		}
+
+		return view('client.pages.golds.' . $gold->symbol, $data);
+	}
+
+    public function sjcView(Request $request)
     {
-    	if ($request->date) {
-    		$dataReceive = $this->goldService->goldViewSearch($slug, $request->date);
-    	} else {
-    		$dataReceive = $this->goldService->goldView($slug);
-    	}
+    	$goldId = config('config.gold.sjc');
+    	$slug = 'sjc';
+    	$data = $this->goldService->sjcView($goldId, $request);
 
-    	if (!empty($dataReceive)) {
-    		$data = [
-    			'stt' => 0,
-    			'recent_day' => $dataReceive['recent_day'],
-    			'recent_day_detail' => $dataReceive['recent_day_detail'],
-    			'goldDetails' => $dataReceive['goldDetails'],
-    			'check' => $dataReceive['check'],
-    			'slug' => $slug
-    		];
+    	return view('client.pages.golds.sjc', $data);
+    }
 
-    		return view('client.pages.golds.' . $slug, $data);
-    	} else {
-    		return redirect()->route('client.home');
-    	}
-    	
+    public function dojiView(Request $request)
+    {
+    	$goldId = config('config.gold.doji');
+    	$slug = 'doji';
+    	$data = $this->goldService->dojiView($goldId, $request);
+
+    	return view('client.pages.golds.doji', $data);
+    }
+
+    public function pnjView(Request $request)
+    {
+    	$goldId = config('config.gold.pnj');
+    	$data = $this->goldService->pnjView($request, $goldId);
+
+    	return view('client.pages.golds.pnj', $data);
+    }
+
+    public function btmcView(Request $request)
+    {
+    	$goldId = config('config.gold.btmc');
+    	$data = $this->goldService->btmcView($request, $goldId);
+
+    	return view('client.pages.golds.btmc', $data);
+    }
+
+    public function pqView(Request $request)
+    {
+    	$goldId = config('config.gold.pq');
+    	$data = $this->goldService->pqView($request, $goldId);
+
+    	return view('client.pages.golds.pq', $data);
     }
 }

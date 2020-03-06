@@ -17,6 +17,25 @@ return [
 		'btmc' => 3,
 		'doji' => 4,
 		'pq' => 5
+	],
+
+	'city' => [
+		'hn' => 2,
+		'hcm' => 1,
+		'dn' => 3,
+		'ct' => 27,
+		'other' => 28, // giá vàng nữ trang
+		'ban-buon' => 29, // giá vàng bán buôn
+	],
+
+	'currency' => [
+		'usd' => 1,
+		'eur' => 2,
+	],
+
+	'oil' => [
+		'petrolimex' => 'petrolimex',
+		'dau-tho' => 'dau-tho'
 	]
 ];
 

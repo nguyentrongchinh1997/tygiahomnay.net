@@ -22,10 +22,11 @@ class CurrencyController extends Controller
 
     	if (!empty($data)) {
     		$data = [
-    			'currency' => $data[0],
-    			'exchangeRate' => $data[1],
+    			'currency' => $data['currency'],
+    			'exchangeRate' => $data['exchangeRate'],
     			'currencyName' => $currencyName,
                 'date' => $date,
+                'currencyList' => $data['currencyList']
     		];
 
     		return view('client.pages.currency', $data);

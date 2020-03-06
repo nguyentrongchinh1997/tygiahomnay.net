@@ -24,18 +24,43 @@ class BankService
 		}
 	}
 
-	public function exchangeRate($bankId)
+	public function exchangeRate($bankId, $request, $bankName)
 	{
-		$date = $this->exchangeRateModel->where('bank_id', $bankId)
-												->orderBy('date', 'desc')
-												->first();
-		$exchangeRate = $this->exchangeRateModel->where('bank_id', $bankId)
+		$banks = $this->bankModel->all();
+		if ($request->date) {
+			$date = $this->exchangeRateModel->where('bank_id', $bankId)
+											->where('date', $request->date)
+											->first();
+		} else {
+			$date = $this->exchangeRateModel->where('bank_id', $bankId)
+											->orderBy('timestamp', 'desc')
+											->take(1)
+											->first();
+		}
+
+		if (isset($date)) {
+
+			$exchangeRate = $this->exchangeRateModel->where('bank_id', $bankId)
 												->where('date', $date->date)
 												->get();
-		$data = [
-			'0' => $date,
-			'1' => $exchangeRate
-		];
+			$data = [
+				'banks' => $banks,
+				'date' => $date->date,
+				'updated_at' => $date->updated_at,
+				'exchangeRate' => $exchangeRate,
+				'check' => count($exchangeRate),
+				'bankName' => $bankName,
+			];
+		} else {
+			$data = [
+				'banks' => $banks,
+				'date' => $request->date,
+				'updated_at' => date("H:i:s $request->date"),
+				'exchangeRate' => '',
+				'check' => 0,
+				'bankName' => $bankName,
+			];
+		}
 
 		return $data;
 	}

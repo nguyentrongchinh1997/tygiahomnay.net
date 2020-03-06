@@ -26,6 +26,7 @@ class OilController extends Controller
 
     	if (!empty($oils)) {
     		$data = [
+                'slug' => 'petrolimex',
 				'date' => $oils['date'],
 				'oils' => $oils['oil'],
 				'check' => $oils['check']
@@ -41,6 +42,6 @@ class OilController extends Controller
 
     public function crude()
     {
-    	return view('client.pages.oils.dau_tho');
+    	return view('client.pages.oils.dau_tho', ['slug' => 'dau-tho']);
     }
 }

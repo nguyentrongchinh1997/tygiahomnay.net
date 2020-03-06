@@ -11,10 +11,16 @@
 |
 */
 
-Route::get('/', function () {
-	return view('client.pages.home');
-})->name('client.home');
+Route::get('/', 'Client\HomeController@homePage')->name('client.home');
+
 Route::get('ty-gia/{bank}', 'Client\BankController@bankView')->name('client.bank');
+
+Route::group(['prefix' => 'ty-gia'], function(){
+	Route::get('{bank}', 'Client\BankController@bankView')->name('client.bank');
+
+	Route::get('export/{date}/{bankId}', 'Client\BankController@export')->name('client.bank.export');
+});
+
 Route::get('ngoai-te/{currencyName}', 'Client\CurrencyController@currencyView')->name('client.currency');
 
 Route::group(['prefix' => 'gia-xang-dau'], function(){
@@ -24,6 +30,15 @@ Route::group(['prefix' => 'gia-xang-dau'], function(){
 
 Route::group(['prefix' => 'gia-vang'], function(){
 	Route::get('{slug}', 'Client\GoldController@goldView')->name('client.gold');
+	// Route::get('sjc', 'Client\GoldController@sjcView')->name('client.sjc');
+
+	// Route::get('doji', 'Client\GoldController@dojiView')->name('client.doji');
+
+	// Route::get('pnj', 'Client\GoldController@pnjView')->name('client.pnj');
+
+	// Route::get('bao-tin-minh-chau', 'Client\GoldController@btmcView')->name('client.btmc');
+
+	// Route::get('phu-quy', 'Client\GoldController@pqView')->name('client.pq');
 });
 
 
@@ -46,5 +61,11 @@ Route::group(['prefix' => 'clone'], function(){
 		Route::get('sjc', 'Client\CloneController@sjc');
 
 		Route::get('doji', 'Client\CloneController@doji');
+
+		Route::get('pnj', 'Client\CloneController@pnj');
+
+		Route::get('pq', 'Client\CloneController@phuQuy');
+
+		Route::get('btmc', 'Client\CloneController@btmc');
 	});
 });

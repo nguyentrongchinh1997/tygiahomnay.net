@@ -68,6 +68,11 @@ function replaceComma($string)
 	return str_replace(',', '', $string);
 }
 
+function replaceCommaToDot($string)
+{
+	return str_replace(',', '.', $string);
+}
+
 function replaceDot($string)
 {
 	return str_replace('.', '', $string);

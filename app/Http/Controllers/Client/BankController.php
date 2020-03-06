@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Client;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Services\Client\BankService;
+use App\Exports\BankExport;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Model\Bank;
 
 class BankController extends Controller
 {
@@ -20,19 +23,8 @@ class BankController extends Controller
     	$bank = $this->bankService->bankView($bankName);
 
     	if (!empty($bank)) {
-    		if ($request->date) {
-    			$date = $request->date;
-    			$exchangeRate = $this->bankService->exchangeRateDate($bank->id, $date);
-    		} else {
-    			$exchangeRate = $this->bankService->exchangeRate($bank->id);
-    		}
-
-    		$data = [
-    			'date' => $exchangeRate[0],
-    			'exchangeRate' => $exchangeRate[1],
-    			'bank' => $bank,
-    			'check' => count($exchangeRate[1]),
-    		];
+    		$data = $this->bankService->exchangeRate($bank->id, $request, $bankName);
+            $data['bank'] = $bank;
 
 			return view('client.pages.bank', $data);
     	} else {
@@ -44,5 +36,12 @@ class BankController extends Controller
     public function test(Request $request)
     {
     	dd($request->date);
+    }
+
+    public function export($date, $bankId)
+    {
+        $bank = Bank::findOrFail($bankId);
+
+        return Excel::download(new BankExport($date, $bankId), $bank->name . '.xlsx');
     }
 }
