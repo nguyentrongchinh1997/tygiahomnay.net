@@ -108,12 +108,12 @@
 			</div>
 			<br><br>
 			<div class="info">
-			<h1 class="h1" style="font-size: 20px; font-weight: normal; margin-bottom: 10px">Giới thiệu</h1>
+			<h1 class="h1" style="font-size: 20px; font-weight: normal; margin-bottom: 20px">Giới thiệu</h1>
 			<p>
 				<b><a href="{{ route('client.home') }}">Tygiahomnay.net</a></b> với mục đích ban đầu là cập nhật dữ liệu về giá vàng, giá xăng dầu, lãi xuất ngân hàng, tỷ giá ngân hàng, tỷ giá ngoại tệ của các tổ chức, ngân hàng tại Việt Nam. 
 				<p>Qua thời gian phát triển, nhận được nhiều ý kiến đóng góp từ độc giả, <b><a href="{{ route('client.home') }}">Tygiahomnay.net</a></b> đã ngày càng nâng cấp và hoàn thiện hơn, thêm nhiều chức năng mới, nhằm phục vụ nhu cầu thông tin của mọi người.</p>
 			</p>
-			<h1 class="h1" style="font-size: 20px; font-weight: normal; margin-bottom: 10px">Chức năng nổi bật</h1>
+			<h1 class="h1" style="font-size: 20px; font-weight: normal; margin-bottom: 20px">Chức năng nổi bật</h1>
 			<p>
 				+ Cập nhật giá vàng, tỷ giá ngân hàng, tỷ giá ngoại tệ, giá xăng dầu, lãi xuất ngân hàng với thời gian nhanh nhất.
 			</p>
