@@ -28,6 +28,8 @@ Route::group(['prefix' => 'gia-xang-dau'], function(){
 	Route::get('dau-tho', 'Client\OilController@crude')->name('client.crude');
 });
 
+Route::get('lai-suat', 'Client\InterestController@viewInterest')->name('client.interest');
+
 Route::group(['prefix' => 'gia-vang'], function(){
 	Route::get('{slug}', 'Client\GoldController@goldView')->name('client.gold');
 	// Route::get('sjc', 'Client\GoldController@sjcView')->name('client.sjc');
@@ -68,4 +70,6 @@ Route::group(['prefix' => 'clone'], function(){
 
 		Route::get('btmc', 'Client\CloneController@btmc');
 	});
+
+	Route::get('rate', 'Client\CloneController@rate');
 });

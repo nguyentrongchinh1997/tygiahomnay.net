@@ -10,6 +10,9 @@ use App\Model\Oil;
 use App\Model\Gold;
 use App\Model\GoldDetail;
 use App\Model\City;
+use App\Model\Period;
+use App\Model\Interest;
+use App\Model\Bank;
 
 class CloneController extends Controller
 {
@@ -798,5 +801,65 @@ class CloneController extends Controller
     	}
     	
     	return $this->insertGoldDetail('', $type, $buy, $sell, $goldId, $date, $updated_at);
+    }
+
+    public function rate()
+    {
+    	try {
+    		$date = date('Y-m-d');
+	    	$html = file_get_html("https://tygiadola.com/laisuat/so-sanh-lai-suat-ngan-hang");
+	    	$tr = $html->find('.table-responsive table tr');
+	    	$stt = 0;
+	    	Interest::getQuery()->delete();
+	    	foreach ($tr as $trItem) {
+	    		$dem = $stt;
+	    		if ($dem > 1) {
+	    			$this->dataRate($trItem, $date, $dem);
+	    		}
+	    		$stt++;
+			}
+
+			echo "Thêm thành công";
+    	} catch (\Exception $e) {
+    		echo $e->getMessage();
+    	}
+    }
+
+    public function dataRate($tr, $date, $dem)
+    {
+    	
+    	foreach ($tr->find('td') as $key => $td) {
+    		if (isset($tr->find('td img')[0])) {
+    			$bankName = str_slug($tr->find('td img')[0]->alt);
+	    		$bank = Bank::where('name', $bankName)->first();
+	    		if ($key > 0) {
+	    			if (isset($bank)) {
+		    			$bankId = $bank->id;
+		    			$this->insertInterest($bankId, $key, $tr->find('td')[$key]->plaintext, $date, config('config.interest.type.counter'));
+		    			
+		    		} else if ($dem == 14) {
+		    			$bankId = config('config.bank.agribank');
+		    			$this->insertInterest($bankId, $key, $tr->find('td')[$key]->plaintext, $date, config('config.interest.type.counter'));
+		    		} else if ($dem == 18) {
+		    			$bankId = config('config.bank.vietinbank');
+		    			$this->insertInterest($bankId, $key, $tr->find('td')[$key]->plaintext, $date, config('config.interest.type.counter'));
+		    		} else if ($dem == 33) {
+		    			$bankId = config('config.bank.tpbank');
+		    			$this->insertInterest($bankId, $key, $tr->find('td')[$key]->plaintext, $date, config('config.interest.type.counter'));
+		    		}
+	    		}
+    		}
+    	}
+    }
+
+    public function insertInterest($bankId, $key, $percent, $date, $type)
+    {
+    	return Interest::create([
+			'bank_id' => $bankId,
+			'period_id' => $key,
+			'percent' => $percent,
+			'date' => $date,
+			'type' => $type,
+		]);
     }
 }

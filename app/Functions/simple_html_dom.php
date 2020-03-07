@@ -45,7 +45,14 @@ defined('DEFAULT_SPAN_TEXT') || define('DEFAULT_SPAN_TEXT', ' ');
 defined('MAX_FILE_SIZE') || define('MAX_FILE_SIZE', 600000);
 define('HDOM_SMARTY_AS_TEXT', 1);
 
-
+function check($string)
+{
+	if (!empty($string)) {
+		return true;
+	} else {
+		return false;
+	}
+}
 function format($string)
 {
 	$string = trim($string);

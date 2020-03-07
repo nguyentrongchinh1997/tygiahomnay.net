@@ -16,4 +16,9 @@ class Bank extends Model
     {
     	return $this->hasMany(ExchangeRate::class);
     }
+
+    public function interest()
+    {
+    	return $this->hasMany(Interest::class);
+    }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Services\Client;
 
 use App\Model\CurrencyName;
 use App\Model\ExchangeRate;
+use App\Model\Bank;
 
 class CurrencyService
 {
@@ -18,6 +19,7 @@ class CurrencyService
 	public function currencyView($currencyName, $date)
 	{
 		try {
+			$banks = Bank::all();
 			$currencyList = CurrencyName::take(20)->get();
 			$timestamp = strtotime($date);
 			$currency = $this->currencyModel->where('currency_code', $currencyName)->first();
@@ -25,6 +27,8 @@ class CurrencyService
 											   ->where('timestamp', $timestamp)
 											   ->get();
 			$data = [
+				'date' => $date,
+				'banks' => $banks,
 				'currency' => $currency, 
 				'exchangeRate' => $exchangeRate, 
 				'currencyList' => $currencyList, 

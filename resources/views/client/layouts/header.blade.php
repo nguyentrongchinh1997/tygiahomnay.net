@@ -9,19 +9,20 @@
 		<link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
 		<link rel="stylesheet" href="{{ asset('css/client/style.css') }}">
 		<link rel="stylesheet" href="{{ asset('css/font/css/all.css') }}">
+		<link rel="icon" type="image/png" href="{{ asset('favicons/favicons.png') }}" sizes="32x32">
 	</head>
 	<body>
 		<div class="row menu-mobile">
 			<div class="container">	
 				<i class="menu-icon fas fa-bars"></i>
 				<a href="{{ route('client.home') }}">
-					<img class="logo-mobile" src="https://scontent.fhan2-3.fna.fbcdn.net/v/t1.15752-9/87485930_511735642818871_9034427474791890944_n.jpg?_nc_cat=108&_nc_sid=b96e70&_nc_ohc=jTKL84QWegsAX_Hph1y&_nc_ht=scontent.fhan2-3.fna&oh=ebb6f379cb799934f40e15dfdd3ba81c&oe=5E918367" style="width: 130px">
+					<img class="logo-mobile" src="{{ asset('image/logo_mobile.png') }}" style="width: 200px">
 				</a>
 				<div class="menu-mobile-list">
 					<ul>
 						<li>
 							<a href="{{ route('client.home') }}">
-								<img src="https://moviee.vn/images/moviee.vn-footer.png" style="width: 50%;margin: 0px">
+								<img src="{{ asset('image/logo_mobile.png') }}" style="width: 60%;margin: 0px">
 							</a>
 							<i class="exit fas fa-times"></i>
 						</li>
@@ -84,6 +85,9 @@
 								<div style="clear: both;"></div>
 							</ul>
 						</li>
+						<li>
+							<a href="{{ route('client.interest') }}">Lãi xuất</a>
+						</li>
 					</ul>
 				</div>
 			</div>	
@@ -93,7 +97,7 @@
 				<ul class="list-menu">
 					<a href="{{ route('client.home') }}">
 						<li style="padding-right: 50px">
-							<img src="https://scontent.fhan2-3.fna.fbcdn.net/v/t1.15752-9/87485930_511735642818871_9034427474791890944_n.jpg?_nc_cat=108&_nc_sid=b96e70&_nc_ohc=jTKL84QWegsAX_Hph1y&_nc_ht=scontent.fhan2-3.fna&oh=ebb6f379cb799934f40e15dfdd3ba81c&oe=5E918367" style="width: 130px">
+							<img src="https://scontent.fhan2-3.fna.fbcdn.net/v/t1.15752-9/87485930_511735642818871_9034427474791890944_n.jpg?_nc_cat=108&_nc_sid=b96e70&_nc_ohc=jTKL84QWegsAX_Hph1y&_nc_ht=scontent.fhan2-3.fna&oh=ebb6f379cb799934f40e15dfdd3ba81c&oe=5E918367" style="width: 170px">
 						</li>
 					</a>
 					<li class="sub-menu">
@@ -143,6 +147,9 @@
 								</a>
 							</li>
 						</ul>
+					</li>
+					<li class="sub-menu">
+						<a href="{{ route('client.interest') }}">Lãi xuất</a>
 					</li>
 				</ul>
 			</div>

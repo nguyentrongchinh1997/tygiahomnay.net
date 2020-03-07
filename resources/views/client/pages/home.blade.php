@@ -50,7 +50,7 @@
 			<br><br>
 			
 			<h1 class="h1" style="font-size: 20px; font-weight: normal;">Tỷ giá Đô La Mỹ (USD) ngày hôm nay - <b>{{ date('d/m/Y') }}</b></h1>
-			<div class="row data-table">
+			<div class="data-table">
 				<table class="table">
 					<tr style="background: #0066b3; color: #fff">
 						<th>

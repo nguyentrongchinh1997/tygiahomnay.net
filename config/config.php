@@ -36,6 +36,13 @@ return [
 	'oil' => [
 		'petrolimex' => 'petrolimex',
 		'dau-tho' => 'dau-tho'
+	],
+
+	'interest' => [
+		'type' => [
+			'online' => 1,
+			'counter' => 0
+		]
 	]
 ];
 
