@@ -4,20 +4,24 @@ namespace App\Http\Services\Client;
 
 use App\Model\ExchangeRate;
 use App\Model\Bank;
+use App\Model\GoldToday;
 
 class HomeService
 {
-	protected $exchangeRateModel, $bankModel;
+	protected $exchangeRateModel, $bankModel, $priceGoldToday;
 
-	public function __construct(ExchangeRate $exchangeRateModel, Bank $bankModel)
+	public function __construct(ExchangeRate $exchangeRateModel, Bank $bankModel, GoldToday $priceGoldToday)
 	{
 		$this->exchangeRateModel = $exchangeRateModel;
 		$this->bankModel = $bankModel;
+		$this->priceGoldToday = $priceGoldToday;
 	}
 
 	public function homePage()
 	{
 		//$number_day_in_month = cal_days_in_month(CAL_GREGORIAN, date('m'), date('Y'));
+		$priceGoldToday = $this->priceGoldToday->all();
+		$dateUpdatePriceGold = $this->priceGoldToday->first();
 		$today = date('d');
 		$date = date('d-m-Y');
 		$currency = $this->exchangeRateModel->where('date', $date)
@@ -55,11 +59,13 @@ class HomeService
 		}
 
 		$data = [
+			'priceGoldToday' => $priceGoldToday,
 			'banks' => $banks,
 			'buy' => $buy1,
 			'sell' => $sell1,
 			'Ox' => $Ox,
 			'currency' => $currency,
+			'dateUpdatePriceGold' => $dateUpdatePriceGold->created_at,
 		];
 
 		return $data;

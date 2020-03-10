@@ -29,23 +29,28 @@
 			<p style="font-size: 14px; font-style: italic; text-align: right; color: red">Đơn vị: nghàn đồng / lượng</p>
 			<table class="table">
 				<tr>
-					<td colspan="3" style="font-weight: bold; text-align: center; font-size: 18px">{{ str_replace('Bạc', '', $title) }}</td>
+					<td colspan="3" style="font-weight: bold; text-align: center; font-size: 18px">
+						Cập nhật giá vàng {{ date('H:i:s d/m/Y', strtotime($dateUpdatePriceGold)) }}
+					</td>
 				</tr>
 				<tr>
 					<th>Loại</th>
 					<th>Mua vào</th>
 					<th>Bán ra</th>
 				</tr>
-				<tr>
-					<td>Vàng 99.9</td>
-					<td>{{ number_format($buy_99 * 10) }}</td>
-					<td>{{ number_format($sell_99 * 10) }}</td>
-				</tr>
-				<tr>
-					<td>Nhẫn vĩ SDJ</td>
-					<td>{{ number_format($buy_sdj * 10) }}</td>
-					<td>{{ number_format($sell_sdj * 10) }}</td>
-				</tr>
+				@foreach ($priceGoldToday as $price)
+					<tr>
+						<td>
+							{{ $price->type }}
+						</td>
+						<td style="text-align: center;">
+							{{ $price->buy }}
+						</td>
+						<td style="text-align: center;">
+							{{ $price->sell }}
+						</td>
+					</tr>
+				@endforeach
 			</table>
 			<br><br>
 			

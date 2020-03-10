@@ -13,11 +13,13 @@ use App\Model\City;
 use App\Model\Period;
 use App\Model\Interest;
 use App\Model\Bank;
+use App\Model\GoldToday;
 
 class CloneController extends Controller
 {
 	public function all()
 	{
+		$this->priceGoldToday();
 		$this->sacombank();
 		$this->tpbank();
 		$this->bidv();
@@ -31,6 +33,33 @@ class CloneController extends Controller
 		$this->phuQuy();
 		$this->btmc();
 		$this->agribank();
+	}
+
+	public function priceGoldToday()
+	{
+		$html = file_get_html('http://sjc.com.vn/giavang/textContent.php');
+		$stt = 0;
+		GoldToday::getQuery()->delete();
+		foreach ($html->find('.bx1 table tr') as $tr) {
+			$dem = $stt++;
+			if ($dem > 0 && $dem < 10) {
+				$this->getDataPriceGoldToday($tr);
+			}
+		}
+	}
+
+	public function getDataPriceGoldToday($tr)
+	{
+		foreach ($tr->find('td') as $td)
+		{
+			$list[] = $td->plaintext;
+		}
+
+		return GoldToday::create([
+			'type' => $list[0],
+			'buy' => $list[1],
+			'sell' => $list[2],
+		]);
 	}
 
     public function agribank()
