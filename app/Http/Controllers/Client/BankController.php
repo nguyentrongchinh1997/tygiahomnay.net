@@ -33,11 +33,6 @@ class BankController extends Controller
     	
     }
 
-    public function test(Request $request)
-    {
-    	dd($request->date);
-    }
-
     public function export($date, $bankId)
     {
         $bank = Bank::findOrFail($bankId);
