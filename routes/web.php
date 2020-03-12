@@ -58,7 +58,7 @@ Route::group(['prefix' => 'clone'], function(){
 	Route::get('vietinbank', 'Client\CloneController@vietinbank');
 
 	Route::get('oil', 'Client\CloneController@oil');
-
+	
 	Route::group(['prefix' => 'gold'], function(){
 		Route::get('sjc', 'Client\CloneController@sjc');
 

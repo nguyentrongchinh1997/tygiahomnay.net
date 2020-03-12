@@ -14,11 +14,14 @@ use App\Model\Period;
 use App\Model\Interest;
 use App\Model\Bank;
 use App\Model\GoldToday;
+use App\Model\News;
 
 class CloneController extends Controller
 {
 	public function all()
 	{
+		$this->news('https://vietnambiz.vn/tai-chinh/ngan-hang.htm');
+		$this->news('https://vietnambiz.vn/hang-hoa/vang.htm');
 		$this->priceGoldToday();
 		$this->sacombank();
 		$this->tpbank();
@@ -33,6 +36,80 @@ class CloneController extends Controller
 		$this->phuQuy();
 		$this->btmc();
 		$this->agribank();
+	}
+
+	public function news($link)
+	{
+		$html = file_get_html($link);
+		foreach ($html->find('ul.listnews') as $ul) {
+			foreach ($ul->find('li') as $li) {
+				$this->getNews($li);
+			}
+		}
+	}
+
+	public function getNews($li)
+	{
+		$origin = 'https://vietnambiz.vn/';
+		$title = html_entity_decode($li->find('a')[0]->title, ENT_QUOTES, 'UTF-8');
+		$slug = str_slug($title);
+		$link = $origin . $li->find('a')[0]->href;
+		$html = file_get_html($link);
+		$keyword = $html->find('ul.vnbcbcbst-ul li');
+		$description = html_entity_decode($html->find('.vnbcbc-sapo')[0]->plaintext, ENT_QUOTES, 'UTF-8');
+		$content = trim($html->find('.vnbcbc-body')[0]->innertext);
+		$check = $this->checkNews($link);
+
+		if (empty($check)) {
+			$imageSrc = $html->find("meta[property='og:image']", 0)->content;
+			$nameImage = str_slug($title) . '-' . rand() . '.png';
+        	$image = file_get_contents($imageSrc);
+        	file_put_contents(public_path('upload/news/' . $nameImage), $image);
+			$news = $this->insertNews($title, $slug, $content, $nameImage, $description, $link);
+			$this->insertTag($news->id, $keyword);
+
+			echo "Thêm thành công" . '<br>';
+		} else {
+			echo "Đã thêm" . '<br>';
+		}
+	}
+
+	public function insertNews($title, $slug, $content, $image, $description, $link)
+	{
+		$news = News::create([
+			'title' => $title,
+			'slug' => $slug,
+			'content' => $content,
+			'image' => $image,
+			'description' => $description,
+			'origin' => $link,
+			'link_md5' => md5($link)
+		]);
+
+		return $news;
+	}
+
+	public function insertTag($newsId, $keywords)
+	{
+		$keys = '';
+		foreach ($keywords as $key) {
+			$keys = $keys . $key->plaintext . ',';
+		}
+		return News::updateOrCreate(
+			[
+				'id' => $newsId,
+			],
+			[
+				'keyword' => $keys,
+			]
+		);
+	}
+
+	public function checkNews($link)
+	{
+		$link = md5($link);
+
+		return News::where('link_md5', $link)->first();
 	}
 
 	public function priceGoldToday()
