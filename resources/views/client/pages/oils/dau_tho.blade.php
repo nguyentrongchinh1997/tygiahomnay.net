@@ -40,9 +40,12 @@
 			</h2>
 			<br>
 			<iframe src="https://s.tradingview.com/widgetembed/?frameElementId=tradingview_1e92e&symbol=TVC%3AUSOIL&interval=1&symboledit=1&saveimage=1&toolbarbg=f1f3f6&studies=%5B%5D&hideideas=1&theme=White&style=1&timezone=Asia%2FBangkok&studies_overrides=%7B%7D&overrides=%7B%7D&enabled_features=%5B%5D&disabled_features=%5B%5D&locale=vi&referral_id=1713&utm_source=webgia.com&utm_medium=widget&utm_campaign=chart&utm_term=TVC%3AUSOIL"></iframe>
+			<br>
+			@include('client.includes.news_random')
 		</div>
 		<div class="col-lg-3 right">
 			@include('client.includes.usd_sidebar')
+			@include('client.includes.new_news')
 		</div>
 	</div>
 </div>

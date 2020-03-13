@@ -108,10 +108,13 @@
 			<div class="info">
 				{!! $bank->info !!}
 			</div>
+			@include('client.includes.news_random')
 		</div>
 		<div class="col-lg-3 right">
 			@include('client.includes.oil_sidebar')
+			@include('client.includes.new_news')
 		</div>
 	</div>
+	
 </div>
 @endsection

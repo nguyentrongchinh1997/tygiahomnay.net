@@ -135,6 +135,7 @@
 		</div>
 		<div class="col-12 col-md-4 col-lg-3 right">
 			@include('client.includes.oil_sidebar')
+			@include('client.includes.new_news')
 		</div>
 	</div>
 </div>

@@ -31,4 +31,3 @@
 		</td>
 	</tr>
 </table>
-<img src="https://safedownload.net/images/qc_vultr_doc.jpg" style="margin: 30px 0px; width: 100%">

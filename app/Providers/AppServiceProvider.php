@@ -10,6 +10,7 @@ use App\Model\CurrencyName;
 use App\Model\Gold;
 use App\Model\Oil;
 use App\Model\ExchangeRate;
+use App\Model\News;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -32,6 +33,8 @@ class AppServiceProvider extends ServiceProvider
     {
         Schema::defaultStringLength(191);
         View::composer('*', function($view){
+            $newNews = News::latest('id')->limit(5)->get();
+            $newsRandomShare = News::all()->random(10);
             $banks = Bank::all();
             $currencies = CurrencyName::all();
             $golds = Gold::all();
@@ -50,6 +53,8 @@ class AppServiceProvider extends ServiceProvider
                 'currencies' => $currencies,
                 'usds' => $usds,
                 'reccent_day_sidebar' => $reccent_day_sidebar,
+                'newNews' => $newNews,
+                'newsRandomShare' => $newsRandomShare
             ];
             
             $view->with($data);

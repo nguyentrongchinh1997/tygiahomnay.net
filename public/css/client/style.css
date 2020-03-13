@@ -338,14 +338,146 @@ footer{
 }
 @media (min-width: 768px) and (max-width: 1024px){
 	.menu .list-menu li:nth-child(1){
-		padding-right: 20px !important;
+		padding-right: 15px !important;
 	}
 	.container {
 	    max-width: 800px;
 	}
+	.menu .list-menu li .logo-desktop{
+		width: 140px !important;
+	}
+	.menu .list-menu li{
+		padding: 0px 5px;
+		font-size: 14px;
+	}
+
 }
 @media (min-width: 575px) and (max-width: 768px) {
 	.container{
 		max-width: 700px;
 	}
+}
+@media (min-width: 425px) and (max-width: 768px) {
+	.news-list img{
+		border-radius: 5px !important;
+		height: auto !important;
+	}
+}
+#news::before{
+	width: 4px;
+    height: 17px;
+    background-color: #f48320;
+    content: '';
+    display: block;
+    float: left;
+    margin-right: 4px;
+    margin-top: 4px;
+}
+#news{
+	font-weight: bold;
+}
+.news-title{
+	margin-top: -5px;
+	color: #444;
+	font-weight: 700;
+	overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    max-height: 70px;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+.news-list img{
+	width: 100%;
+	height: 80px;
+	object-fit: cover;
+	border-radius: 3px;
+}
+.news-list img:hover{
+	transition: all 0.3s;
+	opacity: 0.8;
+}
+.news-time{
+	margin-bottom: 0px; 
+	margin-top: 15px; 
+	font-size: 13.5px; 
+	color: #727272;
+}
+.page-item.active .page-link{
+	background: #0066b3;
+	border-color: #0066b3;
+}
+.news-detail-title{
+	font-size: 30px;
+	font-weight: bold;
+	color: #444;
+
+}
+#summary{
+	font-weight: bold;
+	font-size: 18px;
+}
+.news-rand{
+	background: #f0f0f0;
+	padding: 20px;
+	list-style-type: none;
+}
+.news-rand li{
+	position: relative;
+	padding: 5px 0px;
+}
+.news-rand li a::before{
+	content: "";
+    width: 10px;
+    height: 10px;
+    background: #f48320;
+    position: absolute;
+    left: 0px;
+    top: 12px;
+}
+.news-detail table{
+	width: 100%;
+}
+.news-detail table tr td{
+	padding: 10px;
+	border: 1px solid #dbdbdb;
+}
+.news-detail h2, .news-detail h3{
+	font-size: 23px;
+	font-weight: bold;
+}
+.news-detail img{
+	display: block;
+	margin-right: auto;
+	margin-left: auto;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+.news-top{
+	padding-left: 0px;
+	list-style-type: none;
+	margin-top: 20px;
+}
+.news-detail .content p{
+	text-align: justify;
+}
+.VCSortableInPreviewMode{
+	overflow-x: auto;
+}
+.news-sidebar a{
+	font-size: 15px;
+	margin-top: -5px;
+	color: #444;
+	font-weight: bold;
+}
+.news-sidebar a:hover{
+	color: #0066b3;
+	transition: all 0.3s;
+}
+.news-sidebar img{
+	border-radius: 4px;
+}
+.news-sidebar img:hover{
+	opacity: 0.8;
+	transition: all 0.3s;
 }

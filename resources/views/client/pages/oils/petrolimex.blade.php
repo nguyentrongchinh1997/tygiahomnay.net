@@ -90,9 +90,11 @@
 						Các tỉnh còn lại.
 					</p>
 				</div>
+				@include('client.includes.news_random')
 			</div>
 			<div class="col-lg-3 right">
 				@include('client.includes.usd_sidebar')
+				@include('client.includes.new_news')
 			</div>
 		</div>
 	</div>

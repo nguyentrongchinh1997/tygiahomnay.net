@@ -100,7 +100,7 @@
 				<ul class="list-menu">
 					<a href="{{ route('client.home') }}">
 						<li style="padding-right: 50px">
-							<img src="{{ asset('image/logo_ty_gia.jpg') }}" style="width: 170px">
+							<img class="logo-desktop" src="{{ asset('image/logo_ty_gia.jpg') }}" style="width: 170px">
 						</li>
 					</a>
 					<li class="sub-menu">
