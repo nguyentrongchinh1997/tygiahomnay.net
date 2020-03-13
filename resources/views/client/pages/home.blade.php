@@ -26,7 +26,7 @@
 	<div class="row">
 		<div class="col-12 col-md-8 col-lg-9">
 			<h1 class="h1" style="font-size: 20px; font-weight: normal;">Tỷ giá vàng hôm nay <b>{{ date('d/m/Y') }}</b></h1>
-			<p style="font-size: 14px; font-style: italic; text-align: right; color: red">Đơn vị: nghàn đồng / lượng</p>
+			<p style="font-size: 14px; font-style: italic; text-align: right; color: red">Đơn vị: ngàn đồng / lượng</p>
 			<table class="table">
 				<tr>
 					<td colspan="3" style="font-weight: bold; text-align: center; font-size: 18px">

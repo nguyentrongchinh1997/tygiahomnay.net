@@ -41,7 +41,7 @@
 					<button>Tra cứu</button>
 				</p>
 				<p style="color: red;margin-top: 10px; font-style: italic; text-align: right;">
-					Đơn vị: nghìn đồng/lượng
+					Đơn vị: ngàn đồng/lượng
 				</p>
 			</form>
 			<div class="row data-table">

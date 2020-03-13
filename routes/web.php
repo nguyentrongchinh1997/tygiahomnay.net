@@ -23,6 +23,10 @@ Route::group(['prefix' => 'ty-gia'], function(){
 
 Route::get('ngoai-te/{currencyName}', 'Client\CurrencyController@currencyView')->name('client.currency');
 
+Route::get('tin-tuc', function(){
+    dd(1); 
+})->name('client.news');
+
 Route::group(['prefix' => 'gia-xang-dau'], function(){
 	Route::get('petrolimex', 'Client\OilController@petrolimexView')->name('client.oil');
 	Route::get('dau-tho', 'Client\OilController@crude')->name('client.crude');

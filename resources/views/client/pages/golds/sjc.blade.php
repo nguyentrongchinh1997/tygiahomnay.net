@@ -40,7 +40,7 @@
 					<button>Tra cứu</button>
 				</p>
 				<p style="color: red;font-style: italic; text-align: right;">
-					Đơn vị: nghìn đồng/lượng
+					Đơn vị: ngàn đồng/lượng
 				</p>
 			</form>
 			<div class="row data-table">

@@ -465,8 +465,8 @@ class CloneController extends Controller
 /*Có lịch sử tỷ giá trong trang webgia.com*/
     public function vietcombank()
     {
-    	$date = date('01-m-Y');
-    	$dateDetail = date('Y-m-01 H:i:s');
+    	$date = date('d-m-Y');
+    	$dateDetail = date('Y-m-d H:i:s');
     	$html = file_get_html('https://webgia.com/ty-gia/vietcombank/' . $date . '.html');
     	$timestamp = strtotime($date);
     	$bankId = config('config.bank.vietcombank');

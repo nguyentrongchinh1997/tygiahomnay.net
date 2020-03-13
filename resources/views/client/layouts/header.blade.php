@@ -86,8 +86,11 @@
 							</ul>
 						</li>
 						<li>
-							<a href="{{ route('client.interest') }}">Lãi xuất</a>
+							<a href="{{ route('client.interest') }}">Lãi suất</a>
 						</li>
+						<li>
+    						<a href="{{ route('client.news') }}">Tin tức</a>
+    					</li>
 					</ul>
 				</div>
 			</div>	
@@ -97,7 +100,7 @@
 				<ul class="list-menu">
 					<a href="{{ route('client.home') }}">
 						<li style="padding-right: 50px">
-							<img src="https://scontent.fhan2-3.fna.fbcdn.net/v/t1.15752-9/87485930_511735642818871_9034427474791890944_n.jpg?_nc_cat=108&_nc_sid=b96e70&_nc_ohc=jTKL84QWegsAX_Hph1y&_nc_ht=scontent.fhan2-3.fna&oh=ebb6f379cb799934f40e15dfdd3ba81c&oe=5E918367" style="width: 170px">
+							<img src="{{ asset('image/logo_ty_gia.jpg') }}" style="width: 170px">
 						</li>
 					</a>
 					<li class="sub-menu">
@@ -149,7 +152,10 @@
 						</ul>
 					</li>
 					<li class="sub-menu">
-						<a href="{{ route('client.interest') }}">Lãi xuất</a>
+						<a href="{{ route('client.interest') }}">Lãi suất</a>
+					</li>
+					<li class="sub-menu">
+						<a href="{{ route('client.news') }}">Tin tức</a>
 					</li>
 				</ul>
 			</div>

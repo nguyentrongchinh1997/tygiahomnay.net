@@ -100,7 +100,6 @@ footer{
 	cursor: pointer;
 }
 .sub-menu:hover ul{
-	transition: all .3s ease-in-out;
 	display: block;
 }
 .sub-menu ul{
