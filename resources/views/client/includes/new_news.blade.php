@@ -1,3 +1,4 @@
+<br>
 <h2 style="font-size: 20px">
 	<a id="news" href="#">
 		Tin mới
