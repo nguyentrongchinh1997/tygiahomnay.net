@@ -22,6 +22,7 @@ class CloneController extends Controller
 	{
 		$this->news('https://vietnambiz.vn/tai-chinh/ngan-hang.htm');
 		$this->news('https://vietnambiz.vn/hang-hoa/vang.htm');
+		$this->news('https://vietnambiz.vn/hang-hoa/nang-luong.htm');
 		$this->priceGoldToday();
 		$this->sacombank();
 		$this->tpbank();

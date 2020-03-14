@@ -21,7 +21,7 @@ class NewsService
 
 	public function news()
 	{
-		$newsList =  $this->newsModel->paginate(20);
+		$newsList =  $this->newsModel->orderBy('id', 'desc')->paginate(20);
 		$banks = $this->bankModel->all();
 		$data = [
 			'newsList' => $newsList,

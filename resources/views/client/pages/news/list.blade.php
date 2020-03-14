@@ -1,8 +1,8 @@
 @extends('client.layouts.index')
 
-@section('title', 'Tin tức tài chính ngân hàng, giá vàng')
-@section('keywords', 'giá vàng, tin tức, lãi suất ngân hàng')
-@section('description', "Cập nhật tin tức tài chính ngân hàng, giá vàng mới nhất")
+@section('title', 'Tin tức cập nhật tỷ giá hối đoái, giá vàng, giá dầu, tài chính ngân hàng')
+@section('keywords', 'giá vàng, tin tức, lãi suất ngân hàng, giá dầu, tỷ giá hối đoái, lãi suất')
+@section('description', "Website liên tục cập nhật thông tin tỷ giá hối đoái, giá vàng, giá dầu, lãi suất ngân hàng. Tin tức thị trường, tài chính, chứng khoán")
 
 @section('content')
 	<div class="row list-category">
@@ -29,7 +29,7 @@
 				<div class="col-md-9 col-lg-9">
 					<h2 style="font-size: 20px">
 						<a id="news" href="{{ route('client.news') }}">
-							TIN TỨC
+							TIN TỨC TỶ GIÁ
 						</a>
 					</h2>
 					<br>
@@ -54,6 +54,9 @@
 								<hr>
 							</div>	
 						@endforeach
+						<p>
+						    Tin tức tỷ giá hối đoái USD, EUR....Giá vàng, giá dầu, lãi suất ngân hàng. Thông tin tài chính, ngân hàng, chứng khoán. Cập nhật mới nhất hàng ngày
+						 </p>   
 						<div class="col-lg-12">
 							{{ $newsList->links() }}
 						</div>
